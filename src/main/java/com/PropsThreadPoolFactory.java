@@ -45,12 +45,11 @@ public class PropsThreadPoolFactory {
                         Map<String, Object> map = new HashMap<String,Object>();
                         for (String val : vals) {
                             String[] entry = val.trim().split("=");
-                            // 取出值
+                            // convert the properties key-value into Map.Entry
                             map.put(entry[0].trim(), entry[1].trim());
                         }
                         // init all threadpool
                         createThreadPool(poolName, map);
-                        System.out.println("create success");// TODO you can use log4j to improve it
                     }
                 }
             }

@@ -2,6 +2,10 @@ package com.executor;
 
 import java.util.concurrent.*;
 
+/**
+ * the customized threadPool from ThreadPoolExecutor
+ * @author chenjun
+ */
 public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
     private int totalTask;
     private long totalTime;

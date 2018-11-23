@@ -20,7 +20,7 @@ public class ThreadPoolRepository {
     /**
      * get a ThreadPoolRepository instance and then
      * you can use the threadPools
-     * @return
+     * @return a singleton ThreadPoolRepository
      */
     public static ThreadPoolRepository getInstance() {
         return SingleHandle.INSTANCE;
