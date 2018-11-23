@@ -40,7 +40,7 @@ public final class ThreadPoolUtil {
     private static ExecutorService getThreadPool(String poolName) throws WorkThredPoolException {
         ExecutorService pool = PropsThreadPoolFactory.getThreadPool(poolName);
         if (pool == null) {
-            throw new WorkThredPoolException("the specified task is not exist");
+            throw new WorkThredPoolException("the specified pool is not exist");
         }
         return pool;
     }
