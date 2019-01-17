@@ -17,6 +17,13 @@ public final class ThreadPoolUtil {
         pool.execute(task);
     }
 
+    public static void submitTasks(String poolName, List<Runnable> tasks) throws WorkThredPoolException {
+        ExecutorService pool = getThreadPool(poolName);
+        for (Runnable task : tasks) {
+            pool.submit(task);
+        }
+    }
+
     public static Future submitFutureTask(String poolName, Callable futureTask) throws WorkThredPoolException {
         ExecutorService pool = getThreadPool(poolName);
         return pool.submit(futureTask);

@@ -1,9 +1,11 @@
 package com.executor;
 
 import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * the customized threadPool from ThreadPoolExecutor
+ *
  * @author chenjun
  */
 public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
