@@ -36,7 +36,7 @@ public class AtomicIntegerTest {
             e.printStackTrace();
         }
         System.out.println(time.getSecond());
-        System.out.println(count);
+//        System.out.println(count);
     }
 
 }
