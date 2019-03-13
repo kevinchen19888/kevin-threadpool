@@ -9,18 +9,22 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author chenjun
  */
 public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
-    private int totalTask;
+    private int totalDoneTasks;
     private long totalTime;
+    private final String poolName;
     private final ThreadLocal<Long> startTime = new ThreadLocal<Long>();
+    private final AtomicInteger submittedTasks = new AtomicInteger(0);
 
-    public WorkThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue) {
+    public WorkThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, String poolName) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
+        this.poolName = poolName;
     }
 
     @Override
     protected void beforeExecute(Thread t, Runnable r) {
         super.beforeExecute(t, r);
         startTime.set(Long.valueOf(System.currentTimeMillis()));
+        submittedTasks.incrementAndGet();
     }
 
     @Override
@@ -28,13 +32,13 @@ public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
         super.afterExecute(r, t);
         long time = System.currentTimeMillis() - startTime.get();
         synchronized (this) {
-            totalTask++;
+            totalDoneTasks++;
             totalTime += time;
         }
     }
 
-    public synchronized int getTotalTask() {
-        return totalTask;
+    public synchronized int getTotalDoneTasks() {
+        return totalDoneTasks;
     }
 
     public synchronized int getQueueSize() {
@@ -42,7 +46,14 @@ public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
     }
 
     public synchronized double getAverageExecuteTime() {
-        return totalTask == 0 ? 0 : totalTime / (double) totalTask;
+        return totalDoneTasks == 0 ? 0 : totalTime / (double) totalDoneTasks;
     }
 
+    public String getPoolName() {
+        return this.poolName;
+    }
+
+    public int getSubmittedTasks(){
+        return submittedTasks.get();
+    }
 }

@@ -48,7 +48,7 @@ public class PropsThreadPoolFactory {
                             // convert the properties key-value into Map.Entry
                             map.put(entry[0].trim(), entry[1].trim());
                         }
-                        // init all threadpool
+                        // init all threadPool
                         createThreadPool(poolName, map);
                     }
                 }
@@ -71,7 +71,7 @@ public class PropsThreadPoolFactory {
             throw new IllegalArgumentException("maxPoolSize or queueSize is illegal");
         }
         WorkThreadPoolExecutor executor = new WorkThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime,
-                TimeUnit.SECONDS, queue);
+                TimeUnit.SECONDS, queue, poolName);
         poolRepository.addThreadPool(poolName, executor);
     }
 

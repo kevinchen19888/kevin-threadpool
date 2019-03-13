@@ -17,13 +17,31 @@ public class ThreadPoolTest {
         ExecutorService threadPool2 = PropsThreadPoolFactory.getThreadPool("threadPool2");
         Assert.assertNotNull(threadPool1);
         Assert.assertNotNull(threadPool2);
+        threadPool1.shutdown();
+        threadPool2.shutdown();
+
     }
 
     @Test
     public void test2() {
-        ExecutorService threadPool1 = PropsThreadPoolFactory.getThreadPool("threadPool1");
-        threadPool1.execute(new ThreadA(atomicInteger.incrementAndGet()));
+        ExecutorService threadPool1 = null;
+        try {
+            threadPool1 = PropsThreadPoolFactory.getThreadPool("threadPool1");
+            threadPool1.execute(new ThreadA(atomicInteger.incrementAndGet()));
+            System.out.println("done");
+        } finally {
+            if (threadPool1 != null) {
+                threadPool1.shutdown();
+            }
+        }
 
+    }
+
+    public boolean isNullStr(String str) {
+        if (str == null || str.trim().length() == 0) {
+            return true;
+        }
+        return false;
     }
 
 }
@@ -36,7 +54,7 @@ class ThreadA implements Runnable {
     }
 
     public void run() {
-        System.out.println("this ThreadA is" + a);
+        System.out.println("this ThreadA is: " + a);
     }
 }
 

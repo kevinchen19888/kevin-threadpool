@@ -1,18 +1,19 @@
 package test;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AtomicIntegerTest {
     private static final int THREADS_CONUT = 20;
-    //    public static AtomicInteger count = new AtomicInteger(0);
+        public static AtomicInteger count = new AtomicInteger(0);
     // 使用此类型导致非预期错误结果
-    public static volatile int count;
+//    public static volatile int count;
     public static LocalDateTime time = LocalDateTime.now();
 
 
     public static void increase() {
-//        count.incrementAndGet();
-        count++;
+        count.incrementAndGet();
+//        count++;
         time = time.plusSeconds(1);
     }
 
@@ -36,7 +37,7 @@ public class AtomicIntegerTest {
             e.printStackTrace();
         }
         System.out.println(time.getSecond());
-//        System.out.println(count);
+        System.out.println(count);
     }
 
 }
