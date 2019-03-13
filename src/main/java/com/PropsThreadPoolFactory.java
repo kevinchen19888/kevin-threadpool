@@ -66,12 +66,13 @@ public class PropsThreadPoolFactory {
         long keepAliveTime = Long.valueOf(String.valueOf(poolValueMap.get("keepAliveTime")));
         ArrayBlockingQueue queue;
         if (maxPoolSize > 0 && queueSize > 0) {
+            // queue is defined as ArrayBlockingQueue
             queue = new ArrayBlockingQueue(queueSize);
         } else {
             throw new IllegalArgumentException("maxPoolSize or queueSize is illegal");
         }
-        WorkThreadPoolExecutor executor = new WorkThreadPoolExecutor(corePoolSize, maxPoolSize, keepAliveTime,
-                TimeUnit.SECONDS, queue, poolName);
+        WorkThreadPoolExecutor executor = new WorkThreadPoolExecutor(corePoolSize, maxPoolSize,
+                keepAliveTime, TimeUnit.SECONDS, queue, poolName);
         poolRepository.addThreadPool(poolName, executor);
     }
 

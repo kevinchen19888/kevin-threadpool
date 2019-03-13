@@ -15,7 +15,8 @@ public class WorkThreadPoolExecutor extends ThreadPoolExecutor {
     private final ThreadLocal<Long> startTime = new ThreadLocal<Long>();
     private final AtomicInteger submittedTasks = new AtomicInteger(0);
 
-    public WorkThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit, BlockingQueue<Runnable> workQueue, String poolName) {
+    public WorkThreadPoolExecutor(int corePoolSize, int maximumPoolSize, long keepAliveTime, TimeUnit unit,
+                                  BlockingQueue<Runnable> workQueue, String poolName) {
         super(corePoolSize, maximumPoolSize, keepAliveTime, unit, workQueue);
         this.poolName = poolName;
     }
