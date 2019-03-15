@@ -28,17 +28,12 @@ public class ThreadPoolRepository {
         return SingleHandle.INSTANCE;
     }
 
-    private ThreadPoolRepository() {
-        poolRepository = new ConcurrentHashMap<String, ExecutorService>();
-    }
-
     /**
      * delay initial single model
      */
     private static class SingleHandle {
         final static ThreadPoolRepository INSTANCE = new ThreadPoolRepository();
     }
-
     public ExecutorService getThreadPool(String poolname) {
         return poolRepository.get(poolname);
     }
@@ -74,6 +69,10 @@ public class ThreadPoolRepository {
             }
         }
         return false;
+    }
+
+    private ThreadPoolRepository() {
+        poolRepository = new ConcurrentHashMap<String, ExecutorService>();
     }
 
 }
