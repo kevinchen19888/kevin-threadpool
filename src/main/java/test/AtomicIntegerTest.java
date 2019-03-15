@@ -17,6 +17,13 @@ public class AtomicIntegerTest {
         time = time.plusSeconds(1);
     }
 
+    public static boolean isNullStr(String str) {
+        if (str == null || str.trim().length() == 0) {
+            return true;
+        }
+        return false;
+    }
+
     public static void main(String[] args) {
         System.out.println(time.getSecond());
         Thread[] threads = new Thread[THREADS_CONUT];

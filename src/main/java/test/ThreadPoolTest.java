@@ -23,11 +23,12 @@ public class ThreadPoolTest {
     }
 
     @Test
-    public void test2() {
+    public void test2() throws InterruptedException {
         ExecutorService threadPool1 = null;
         try {
             threadPool1 = PropsThreadPoolFactory.getThreadPool("threadPool1");
             threadPool1.execute(new ThreadA(atomicInteger.incrementAndGet()));
+            Thread.sleep(10);
             System.out.println("done");
         } finally {
             if (threadPool1 != null) {
@@ -35,13 +36,6 @@ public class ThreadPoolTest {
             }
         }
 
-    }
-
-    public boolean isNullStr(String str) {
-        if (str == null || str.trim().length() == 0) {
-            return true;
-        }
-        return false;
     }
 
 }
