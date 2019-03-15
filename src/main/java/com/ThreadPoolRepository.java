@@ -1,5 +1,7 @@
 package com;
 
+import org.apache.commons.collections.CollectionUtils;
+
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -51,6 +53,9 @@ public class ThreadPoolRepository {
 
     public void shutDownAllThreadPool() {
         Set<Map.Entry<String, ExecutorService>> entries = poolRepository.entrySet();
+        if (CollectionUtils.isEmpty(entries))
+            throw new NullPointerException("the poolRepository is null");
+
         for (Map.Entry<String, ExecutorService> entry : entries) {
             synchronized (entry) {
                 entry.getValue().shutdown();
@@ -60,6 +65,9 @@ public class ThreadPoolRepository {
 
     public boolean isShutDownThreadPool(String poolName) {
         Set<Map.Entry<String, ExecutorService>> entries = poolRepository.entrySet();
+        if (CollectionUtils.isEmpty(entries))
+            throw new NullPointerException("the poolRepository is null");
+
         for (Map.Entry<String, ExecutorService> entry : entries) {
             if (entry.getKey().equals(poolName)) {
                 return entry.getValue().isShutdown();
