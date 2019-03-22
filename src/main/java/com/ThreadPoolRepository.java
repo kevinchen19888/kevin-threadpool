@@ -42,8 +42,9 @@ public class ThreadPoolRepository {
         return poolRepository.putIfAbsent(poolName, pool);
     }
 
-    public ExecutorService removeThreadPool(String poolName) {
-        return poolRepository.remove(poolName);
+    public void removeThreadPool(String poolName) {
+        ExecutorService removedPool = poolRepository.remove(poolName);
+        removedPool.shutdown();
     }
 
     public void shutDownAllThreadPool() {
